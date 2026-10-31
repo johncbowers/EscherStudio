@@ -1,0 +1,19 @@
+# Combinatorial chair, after Bowers / KoebePy.
+# Cycles map positionally to the named prototile.
+tile Chair(A,B,C,D,E,F,G,H) {
+  split A B -> a;
+  split B C -> b;
+  split C D -> c;
+  split D E -> d;
+  split E F -> e;
+  split F G -> f;
+  split G H -> g;
+  split H A -> h;
+  vertex i,j,k,l,m;
+  child Chair(A,a,B,j,k,l,H,h);
+  child Chair(G,g,H,l,m,e,F,f);
+  child Chair(k,j,i,d,E,e,m,l);
+  child Chair(C,c,D,d,i,j,B,b);
+}
+start Chair;
+depth 3;

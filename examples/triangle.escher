@@ -1,0 +1,11 @@
+tile Triangle(A,B,C) {
+  split A B -> a;
+  split B C -> b;
+  split C A -> c;
+  child Triangle(A,a,c);
+  child Triangle(a,B,b);
+  child Triangle(c,b,C);
+  child Triangle(a,b,c);
+}
+start Triangle;
+depth 4;

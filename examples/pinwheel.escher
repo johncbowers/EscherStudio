@@ -1,0 +1,22 @@
+# Bowers & Stephenson, Conformal Tilings I, Figure 17.
+# Each triangle includes the midpoint of its longer leg.
+tile Pinwheel(A,B,C,D) {
+  split B C -> f,g,h,i;
+  vertex j,k;
+  child PinwheelMirror(h,i,C,D);
+  child Pinwheel(h,D,f,g);
+  child Pinwheel(j,f,D,k);
+  child PinwheelMirror(j,k,D,A);
+  child PinwheelMirror(f,j,A,B);
+}
+tile PinwheelMirror(A,D,C,B) {
+  split C B -> i,h,g,f;
+  vertex j,k;
+  child Pinwheel(h,D,C,i);
+  child PinwheelMirror(h,g,f,D);
+  child PinwheelMirror(j,k,D,f);
+  child Pinwheel(j,A,D,k);
+  child Pinwheel(f,B,A,j);
+}
+start Pinwheel;
+depth 3;

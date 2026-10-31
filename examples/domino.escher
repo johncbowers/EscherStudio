@@ -1,0 +1,17 @@
+# Bowers & Stephenson, Conformal Tilings I, Figure 15.
+# Both long sides include their midpoint.
+tile Domino(A,B,C,D,E,F) {
+  split A B -> a;
+  split B C -> b;
+  split C D -> c;
+  split D E -> d;
+  split E F -> e;
+  split F A -> f;
+  vertex o,p,q;
+  child Domino(f,o,p,E,e,F);
+  child Domino(A,a,B,p,o,f);
+  child Domino(E,p,B,b,q,d);
+  child Domino(d,q,b,C,c,D);
+}
+start Domino;
+depth 3;

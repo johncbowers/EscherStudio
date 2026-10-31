@@ -1,0 +1,22 @@
+# Bowers & Stephenson, Conformal Tilings I, Figure 17.
+# The base vertex is below the principal corner, not the triple junction.
+tile Sphinx(A,B,C,D,E,F) {
+  split D E -> a,b;
+  split F A -> c,d;
+  vertex i,j,k,l;
+  child Sphinx(B,i,j,c,d,A);
+  child SphinxMirror(i,b,E,F,c,j);
+  child SphinxMirror(b,i,B,C,l,k);
+  child SphinxMirror(C,D,a,b,k,l);
+}
+tile SphinxMirror(A,F,E,D,C,B) {
+  split E D -> b,a;
+  split A F -> d,c;
+  vertex i,j,k,l;
+  child SphinxMirror(B,A,d,c,j,i);
+  child Sphinx(i,j,c,F,E,b);
+  child Sphinx(b,k,l,C,B,i);
+  child Sphinx(C,l,k,b,a,D);
+}
+start Sphinx;
+depth 3;

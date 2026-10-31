@@ -1,0 +1,13 @@
+tile Quad(A,B,C,D) {
+  split A B -> a;
+  split B C -> b;
+  split C D -> c;
+  split D A -> d;
+  vertex o;
+  child Quad(A,a,o,d);
+  child Quad(a,B,b,o);
+  child Quad(o,b,C,c);
+  child Quad(d,o,c,D);
+}
+start Quad;
+depth 4;

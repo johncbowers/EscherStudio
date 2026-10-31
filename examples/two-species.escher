@@ -1,0 +1,24 @@
+tile Amber(A,B,C,D) {
+  split A B -> a;
+  split B C -> b;
+  split C D -> c;
+  split D A -> d;
+  vertex o;
+  child Amber(A,a,o,d);
+  child Teal(a,B,b,o);
+  child Amber(o,b,C,c);
+  child Teal(d,o,c,D);
+}
+tile Teal(A,B,C,D) {
+  split A B -> a;
+  split B C -> b;
+  split C D -> c;
+  split D A -> d;
+  vertex o;
+  child Teal(A,a,o,d);
+  child Amber(a,B,b,o);
+  child Teal(o,b,C,c);
+  child Amber(d,o,c,D);
+}
+start Amber;
+depth 3;

@@ -12,6 +12,10 @@
 | tutte | Dirichlet harmonic embedding and measured residual |
 | packing | Star triangulation, Euclidean Newton solver, oriented triangle development |
 | worker | Isolated parse/generate/embed request with structured error response |
+| discovery | Collar selection, aggregate boundaries, normalization, shape metrics, experiments, substitution diagnostics |
+| geometry | Alternating similarity/coordinate least squares and numerical geometric checks |
+| search | Deterministic rule variations, recursive validation, short-fit ranking |
+| discovery-worker | Progress, errors, and results for discovery tasks |
 
 The graph is represented by indexed polygonal cycles and derived undirected edges, rather than the original Python DCEL classes. Incidences and links are reconstructed for validation. Vertex IDs persist across levels; tile IDs extend a parent ID by a child index. A hierarchy path is the sequence of child indices from the root. The UI retains all generated levels, colors leaves by path prefixes, and outlines edges whose incident leaves have different prefixes.
 
@@ -31,4 +35,4 @@ A hyperbolic solver can accept the same star triangles and boundary cycle, retur
 
 A full Orick/GOPack port needs effective-sector radii, radius-dependent weighted center layouts, boundary-circle normalization, alternating iterations and independently checked error criteria. The local Python `gopack.py` does not provide those completed routines. GOPack MATLAB is GPL-3.0: choose licensing deliberately before translating it.
 
-Discovery tools can operate on the pure AST and incidence data: substitution matrices, empirical collared tile sets, and local neighbor statistics are natural next steps. A finite patch alone cannot prove aperiodicity or exhaust an infinite tiling's collared tiles. Add explicit finite-depth labels and invariant/property tests before exposing these as research results.
+The discovery workspace now operates on the pure AST and incidence data. It supports finite collars and interior targets, normalized shape comparisons, common-contraction geometry fitting, and reproducible local rule search. Detailed algorithms and limits are in [DISCOVERY.md](DISCOVERY.md). Full collared tile enumeration, expansion complexes, and exact certificates remain future work. A finite patch alone cannot prove aperiodicity or exhaust an infinite tiling's collared tiles.

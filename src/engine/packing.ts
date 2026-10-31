@@ -9,11 +9,12 @@ export function triangulate(mesh:Mesh) {
   return {n,triangles};
 }
 /** Euclidean fixed-boundary-radii packing. Newton in log radii; not GOPack or a hyperbolic solver. */
-export function pack(mesh:Mesh):Drawing {
+export function pack(mesh:Mesh,options:{boundary?:'equal'|'wave'}={}):Drawing {
   const {n,triangles}=triangulate(mesh);
   if(n>7000)throw new Error('Circle packing is limited to 7,000 circles. Reduce depth or use Tutte.');
   const boundary=new Set(mesh.boundary),interior=Array.from({length:n},(_,i)=>i).filter(i=>!boundary.has(i));
   const index=new Map(interior.map((v,i)=>[v,i]));let u=Array(n).fill(0),iterations=0;
+  if(options.boundary==='wave')mesh.boundary.forEach((v,i)=>{const angle=2*Math.PI*i/mesh.boundary.length;u[v]=.35*Math.cos(2*angle)+.2*Math.sin(3*angle);});
   const evaluate=(logs:number[],jacobian=false)=>{
     const r=logs.map(Math.exp),sums=Array(n).fill(0),diag=Array(interior.length).fill(0),adj=interior.map(()=>new Map<number,number>());
     for(const t of triangles) {

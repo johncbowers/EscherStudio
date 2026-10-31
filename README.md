@@ -2,7 +2,7 @@
 
 [Open Escher Studio](https://johncbowers.github.io/EscherStudio/) · [Source repository](https://github.com/johncbowers/EscherStudio)
 
-A browser-only laboratory for hierarchical combinatorial tilings, inspired by John C. Bowers and Dakota Lawson's [Bridges 2024 paper](https://archive.bridgesmathart.org/2024/bridges2024-455.pdf). React, TypeScript and Vite; no backend, Python runtime, credentials, or remote numerical services. Fonts use system fallbacks; built assets have no external runtime dependencies.
+A browser-only editor and discovery workspace for hierarchical combinatorial tilings, inspired by John C. Bowers and Dakota Lawson's [Bridges 2024 paper](https://archive.bridgesmathart.org/2024/bridges2024-455.pdf). React, TypeScript and Vite; no backend, Python runtime, credentials, or remote numerical services. Fonts use system fallbacks; built assets have no external runtime dependencies.
 
 ## Run locally
 
@@ -42,6 +42,12 @@ The text language is **new for this app**. It expresses Escher/KoebePy's data mo
 
 The workflow tests, builds, uploads `dist/`, and deploys it. Vite uses `base: './'`, so assets and the module worker work under both a repository URL (`/EscherWeb/`) and an account root. No client routing or SPA fallback is needed. Change the workflow branch if your default branch differs. Deployment is managed by `.github/workflows/pages.yml` in the EscherStudio repository.
 
+## Discovery workspace
+
+Open **Discovery** to select an interior aggregate, vary its surrounding collar, compare boundary conditions and odd/even refinements, fit a polygonal realization, search nearby rules, and save reproducible configurations in a local notebook. Export measurements as CSV or JSON and fitted coordinates as JSON. See the [discovery guide](docs/DISCOVERY.md) for algorithms, parameters, tolerances, and interpretation.
+
+These are numerical research tools, not existence, novelty, fractality, or aperiodicity certificates.
+
 ## Implemented mathematics
 
 - Oriented polygonal cell complexes, positional prototile-to-child vertex correspondence, edge split interning with direction reversal, face-local interior vertices, and explicit parent/path hierarchy.
@@ -57,11 +63,11 @@ The workflow tests, builds, uploads `dist/`, and deploys it. Vite uses `base: '.
 - Tutte's classical nondegeneracy guarantee has connectivity hypotheses. Disk validation alone is not a universal guarantee of strictly convex faces for every admissible user rule. Degenerate embeddings can occur for weakly connected examples; the solver reports harmonic residual, not a general geometric certificate.
 - Euclidean packing is experimental and limited to 7,000 circles, 60 Newton steps, and finite numerical ranges. Angle and edge errors are reported. Global non-overlap is tested for representative small examples, **not certified for arbitrary scripts**. A non-converged result is explicitly marked. Equal boundary radii do not enforce tangency to a unit disk, and the boundary may be nonconvex.
 - Maximum depth 7, 12,000 tiles and 40,000 vertices. Whole-mesh generation grows exponentially. Drawing thousands of SVG elements also has a browser cost.
-- No hyperbolic packing or automated discovery is presented as implemented. The flat mesh, star triangulation, pure solver modules, worker boundary, and hierarchy provide extension points for both. See [architecture](docs/ARCHITECTURE.md) and [source research](docs/RESEARCH.md).
+- No hyperbolic packing or infinite expansion-complex construction is implemented. Discovery currently uses finite seed patches, bounded collar selection, common-contraction geometric fitting, and single-child rule variations. See [architecture](docs/ARCHITECTURE.md), [discovery limitations](docs/DISCOVERY.md), and [source research](docs/RESEARCH.md).
 
 ## Verification
 
-`npm test` runs 48 tests covering worker request/response integration, structured errors, grammar errors, orientation and manifold checks, exact chair and grid counts, multi-vertex split reversal, incompatible edge subdivisions, parent hierarchy, mixed tile types, size limits, harmonic equations, analytic circle-radius ratios, developed tangency, and small-example non-overlap. A depth-four chair packing test exercises a larger patch. `npm run build` runs strict TypeScript checking and a production Vite build.
+`npm test` covers discovery worker integration, collar extraction, shape comparisons, boundary sensitivity, geometric recovery, reproducible search, and worker request/response integration, structured errors, grammar errors, orientation and manifold checks, exact chair and grid counts, multi-vertex split reversal, incompatible edge subdivisions, parent hierarchy, mixed tile types, size limits, harmonic equations, analytic circle-radius ratios, developed tangency, and small-example non-overlap. A depth-four chair packing test exercises a larger patch. `npm run build` runs strict TypeScript checking and a production Vite build.
 
 The initial build session blocked browser preview. In the subsequent update, the local server and in-app browser were available: the new classic examples and plain-language headings were checked in the running application. Automated tests cover numerical and combinatorial behavior; browser checks were manual.
 

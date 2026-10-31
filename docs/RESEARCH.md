@@ -20,7 +20,7 @@ No historical Escher text grammar was found in the supplied source; the user con
 
 ## Requirements left open
 
-A verified maximal hyperbolic packing or complete Orick/GOPack port requires further source study, including the full thesis, independent cross-language fixtures, boundary normalization tests, and a licensing decision if MATLAB code is translated. It is not hidden behind a disabled or misleading UI option. Automated tiling discovery is future work; current inspection provides hierarchy and basic graph counts only.
+A verified maximal hyperbolic packing or complete Orick/GOPack port requires further source study, including the full thesis, independent cross-language fixtures, boundary normalization tests, and a licensing decision if MATLAB code is translated. It is not hidden behind a disabled or misleading UI option. The initial version provided hierarchy and basic graph counts only. Version 0.2 adds numerical discovery experiments, coordinate fitting, and bounded rule search, described in [DISCOVERY.md](DISCOVERY.md); it does not claim formal discovery or existence certificates.
 
 ## Classic examples added from the supplied papers
 

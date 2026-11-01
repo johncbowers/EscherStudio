@@ -1,6 +1,7 @@
 import { type Program, type Mesh, type Tile, type Tiling, EscherError } from './types';
 import { edgeKey, makeMesh } from './topology';
-export const MAX_TILES=12000;
+import { MAX_DEPTH, MAX_TILES, MAX_VERTICES } from './limits';
+export { MAX_TILES } from './limits';
 export function initial(p: Program, type=p.start): Mesh {
   return makeMesh(p.rules[type].vertices.length,[{id:'0',type,vertices:p.rules[type].vertices.map((_,i)=>i),parent:null,path:[]}]);
 }
@@ -20,12 +21,12 @@ export function subdivide(mesh: Mesh,p: Program): Mesh {
     }
     rule.interior.forEach(n=>local.set(n,count++));
     rule.children.forEach((child,i)=>children.push({id:`${tile.id}.${i}`,type:child.type,vertices:child.vertices.map(n=>local.get(n)!),parent:tile.id,path:[...tile.path,i]}));
-    if(children.length>MAX_TILES || count>40000)throw new EscherError(`Size limit reached (${MAX_TILES.toLocaleString()} tiles / 40,000 vertices). Reduce depth.`,rule.line);
+    if(children.length>MAX_TILES || count>MAX_VERTICES)throw new EscherError(`Size limit reached (${MAX_TILES.toLocaleString()} tiles / ${MAX_VERTICES.toLocaleString()} vertices). Reduce depth.`,rule.line);
   }
   return makeMesh(count,children);
 }
 export function generate(p:Program,depth=p.depth,type=p.start):Tiling {
-  if(!Number.isInteger(depth) || depth<0 || depth>7)throw new EscherError('Depth must be an integer between 0 and 7.');
+  if(!Number.isInteger(depth) || depth<0 || depth>MAX_DEPTH)throw new EscherError(`Depth must be an integer between 0 and ${MAX_DEPTH}.`);
   const levels=[initial(p,type)];for(let i=0;i<depth;i++)levels.push(subdivide(levels[i],p));return {levels};
 }
 

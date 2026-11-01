@@ -1,0 +1,84 @@
+{
+  "runtime": "v23.9.0",
+  "platform": "darwin",
+  "limits": {
+    "MAX_DEPTH": 9,
+    "MAX_TILES": 50000,
+    "MAX_VERTICES": 100000,
+    "MAX_CIRCLES": 50000
+  },
+  "rows": [
+    {
+      "example": "Chair",
+      "depth": 5,
+      "tiles": 1024,
+      "circles": 4225,
+      "generationMs": 13,
+      "packingMs": 383,
+      "iterations": 4,
+      "angleError": 8.504308368628699e-12,
+      "tangencyError": 3.0671338802079617e-09,
+      "converged": true
+    },
+    {
+      "example": "Chair",
+      "depth": 6,
+      "tiles": 4096,
+      "circles": 16641,
+      "generationMs": 39,
+      "packingMs": 2724,
+      "iterations": 4,
+      "angleError": 4.305000800286507e-12,
+      "tangencyError": 4.835781675094353e-08,
+      "converged": true
+    },
+    {
+      "example": "Pinwheel",
+      "depth": 5,
+      "tiles": 3125,
+      "circles": 6351,
+      "generationMs": 14,
+      "packingMs": 943,
+      "iterations": 5,
+      "angleError": 6.127542917511164e-12,
+      "tangencyError": 2.398244621537593e-05,
+      "converged": false
+    },
+    {
+      "example": "Pinwheel",
+      "depth": 6,
+      "tiles": 15625,
+      "circles": 31501,
+      "generationMs": 58,
+      "packingMs": 10618,
+      "iterations": 5,
+      "angleError": 4.988010005035903e-12,
+      "tangencyError": 0.001971639976488304,
+      "converged": false
+    },
+    {
+      "example": "Quad",
+      "depth": 6,
+      "tiles": 4096,
+      "circles": 8321,
+      "generationMs": 17,
+      "packingMs": 554,
+      "iterations": 4,
+      "angleError": 8.056666445099836e-12,
+      "tangencyError": 8.676142471131243e-09,
+      "converged": true
+    },
+    {
+      "example": "Quad",
+      "depth": 7,
+      "tiles": 16384,
+      "circles": 33025,
+      "generationMs": 81,
+      "packingMs": 4369,
+      "iterations": 4,
+      "angleError": 4.4142467459096224e-12,
+      "tangencyError": 2.4459845704427607e-08,
+      "converged": true
+    }
+  ]
+}

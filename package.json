@@ -1,13 +1,14 @@
 {
   "name": "escher-studio",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",
     "test": "vitest run",
-    "preview": "vite preview --host 127.0.0.1"
+    "preview": "vite preview --host 127.0.0.1",
+    "benchmark:packing": "node scripts/benchmark-packing.mjs"
   },
   "dependencies": {
     "react": "18.3.1",

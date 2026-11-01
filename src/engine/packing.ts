@@ -1,6 +1,7 @@
 import { type Mesh, type Drawing, type Point } from './types';
 import { cg } from './linear';
 import { edgeKey } from './topology';
+import { MAX_CIRCLES } from './limits';
 const TAU=2*Math.PI;
 const clamp=(x:number)=>Math.max(-1,Math.min(1,x));
 export function triangulate(mesh:Mesh) {
@@ -10,8 +11,8 @@ export function triangulate(mesh:Mesh) {
 }
 /** Euclidean fixed-boundary-radii packing. Newton in log radii; not GOPack or a hyperbolic solver. */
 export function pack(mesh:Mesh,options:{boundary?:'equal'|'wave'}={}):Drawing {
+  if(mesh.vertexCount+mesh.tiles.length>MAX_CIRCLES)throw new Error(`Circle packing is limited to ${MAX_CIRCLES.toLocaleString()} circles. This patch needs ${(mesh.vertexCount+mesh.tiles.length).toLocaleString()}. Reduce depth or use Tutte.`);
   const {n,triangles}=triangulate(mesh);
-  if(n>7000)throw new Error('Circle packing is limited to 7,000 circles. Reduce depth or use Tutte.');
   const boundary=new Set(mesh.boundary),interior=Array.from({length:n},(_,i)=>i).filter(i=>!boundary.has(i));
   const index=new Map(interior.map((v,i)=>[v,i]));let u=Array(n).fill(0),iterations=0;
   if(options.boundary==='wave')mesh.boundary.forEach((v,i)=>{const angle=2*Math.PI*i/mesh.boundary.length;u[v]=.35*Math.cos(2*angle)+.2*Math.sin(3*angle);});

@@ -87,7 +87,7 @@ it('measures boundary-condition sensitivity separately from depth change',()=>{
  expect(result.rows[0].delta).toBeUndefined();
 });
 it('reports resource limits as excluded rows instead of losing a run',()=>{
- const p=parse(example('Pinwheel').source),result=runExperiment(p,'',{...config,seedDepth:3,refinements:3,boundaries:['equal']});
- expect(result.rows.some(r=>!r.accepted&&!!r.error)).toBe(true);
+ const p=parse(example('Quad').source),result=runExperiment(p,'',{...config,seedDepth:4,refinements:4,boundaries:['equal']});
+ expect(result.rows.some(r=>!r.accepted&&r.error?.includes('Size limit reached'))).toBe(true);
  expect(result.rows[0].accepted).toBe(true);
 });

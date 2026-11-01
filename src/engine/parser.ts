@@ -1,3 +1,4 @@
+import { MAX_DEPTH } from './limits';
 import { EscherError, type Program, type Rule } from './types';
 import { makeMesh } from './topology';
 interface Token { value: string; line: number; }
@@ -43,7 +44,7 @@ export function parse(source: string): Program {
 }
 export function validate(p: Program) {
   if(!p.start || !Object.hasOwn(p.rules,p.start))throw new EscherError('Choose a defined starting tile.');
-  if(p.depth<0 || p.depth>7)throw new EscherError('Depth must be between 0 and 7.');
+  if(p.depth<0 || p.depth>MAX_DEPTH)throw new EscherError(`Depth must be between 0 and ${MAX_DEPTH}.`);
   for(const rule of Object.values(p.rules)) {
     try {
       const names=[...rule.vertices,...Object.values(rule.splits).flat(),...rule.interior];

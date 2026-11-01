@@ -21,13 +21,13 @@ npm run build
 npm run preview
 ```
 
-The build is in `dist/`. Numerical and subdivision work runs in a module worker. Changing settings terminates the previous worker; Cancel stops a computation. A 30-second timeout and size limits bound expensive work.
+The build is in `dist/`. Numerical and subdivision work runs in a module worker. Changing settings terminates the previous worker; Cancel stops a computation. A 90-second Studio timeout and size limits bound expensive work.
 
 ## Try it
 
 1. Start with Chair, Sphinx, Pinwheel, Domino, Quad, Triangle, or Two species. Run the script after editing (Cmd/Ctrl+Enter).
 2. Rule diagram shows one subdivision with vertex labels. Use the prototile menu for multi-type rules.
-3. Recursive tiling applies the rule at depths 0–7. Color by ancestor groups leaf tiles by a chosen hierarchy level, with aggregate boundaries emphasized.
+3. Recursive tiling applies the rule at depths 0–9. Color by ancestor groups leaf tiles by a chosen hierarchy level, with aggregate boundaries emphasized.
 4. Click a tile, then its ancestors in the inspector. Drag to pan, scroll or use buttons to zoom, and Fit to reset.
 5. Choose Tutte or experimental Euclidean circle packing. Inspect the numerical residuals and convergence status.
 6. Export the current drawing as SVG. Open/Save script uses local files. The draft is also saved in this browser's localStorage (best effort; no server sync).
@@ -61,8 +61,8 @@ These are numerical research tools, not existence, novelty, fractality, or aperi
 - Generated patches are finite disks from one initial tile. No direct limits, arbitrary multi-tile seeds, geometric coordinate declarations, reflection syntax, or boundary gluing declarations yet.
 - The engine supports directed edge splits with any number of named vertices; conflicting counts on actual shared edges are detected during generation. It does not prove compatibility for all future depths.
 - Tutte's classical nondegeneracy guarantee has connectivity hypotheses. Disk validation alone is not a universal guarantee of strictly convex faces for every admissible user rule. Degenerate embeddings can occur for weakly connected examples; the solver reports harmonic residual, not a general geometric certificate.
-- Euclidean packing is experimental and limited to 7,000 circles, 60 Newton steps, and finite numerical ranges. Angle and edge errors are reported. Global non-overlap is tested for representative small examples, **not certified for arbitrary scripts**. A non-converged result is explicitly marked. Equal boundary radii do not enforce tangency to a unit disk, and the boundary may be nonconvex.
-- Maximum depth 7, 12,000 tiles and 40,000 vertices. Whole-mesh generation grows exponentially. Drawing thousands of SVG elements also has a browser cost.
+- Euclidean packing is experimental and limited to 50,000 circles, 60 Newton steps, and finite numerical ranges. Angle and edge errors are reported. Global non-overlap is tested for representative small examples, **not certified for arbitrary scripts**. A non-converged result is explicitly marked. Equal boundary radii do not enforce tangency to a unit disk, and the boundary may be nonconvex.
+- Maximum depth 9, 50,000 tiles and 100,000 vertices. Whole-mesh generation grows exponentially. Drawing thousands of SVG elements also has a browser cost.
 - No hyperbolic packing or infinite expansion-complex construction is implemented. Discovery currently uses finite seed patches, bounded collar selection, common-contraction geometric fitting, and single-child rule variations. See [architecture](docs/ARCHITECTURE.md), [discovery limitations](docs/DISCOVERY.md), and [source research](docs/RESEARCH.md).
 
 ## Verification
@@ -72,3 +72,11 @@ These are numerical research tools, not existence, novelty, fractality, or aperi
 The initial build session blocked browser preview. In the subsequent update, the local server and in-app browser were available: the new classic examples and plain-language headings were checked in the running application. Automated tests cover numerical and combinatorial behavior; browser checks were manual.
 
 Sources and attribution: [RESEARCH.md](docs/RESEARCH.md), [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Larger patches and benchmarks
+
+Studio supports depths 0–9, subject to 50,000 tiles, 100,000 vertices, and 50,000 star-packing circles. Discovery seed depth is 0–5 and additional refinements 0–6; notebook validation uses the same ranges. Studio cancels work after 90 seconds; Discovery retains its two-minute timeout. Changing settings or pressing Cancel terminates the active worker.
+
+For large drawings, circle outlines are combined into a single SVG path to reduce the number of display elements. Packing tolerances are unchanged. Some larger pinwheel drawings miss the tangency tolerance even when their angle equations are accurate; these remain visibly non-converged and excluded from Discovery comparisons.
+
+Run `npm run benchmark:packing` to reproduce the generation/packing timing cases. See [BENCHMARKS.md](docs/BENCHMARKS.md) for the measured results and interpretation.

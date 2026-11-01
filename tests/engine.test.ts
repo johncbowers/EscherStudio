@@ -17,7 +17,7 @@ describe('language and oriented disk validation',()=>{
     ['wrong arity',examples[1].source.replace('Quad(A,a,o,d)','Quad(A,a,o)'),/needs 4/],
     ['wrong orientation',examples[1].source.replace('Quad(A,a,o,d)','Quad(A,d,o,a)'),/same direction|orientation/],
     ['unused vertex',examples[1].source.replace('vertex o;','vertex o,unused;'),/Every declared/],
-    ['depth limit',examples[1].source.replace('depth 4','depth 8'),/between 0 and 7/],
+    ['depth limit',examples[1].source.replace('depth 4','depth 10'),/between 0 and 9/],
     ['missing semicolon',examples[1].source.replace('vertex o;','vertex o'),/Expected ;/],
     ['prototype pollution','tile __proto__(A,B,C) { child __proto__(A,B,C); } start __proto__;',null]
   ])('%s',(_name,source,pattern)=>{if(pattern)expect(()=>parse(source)).toThrow(pattern);else expect(parse(source).start).toBe('__proto__');});
@@ -42,7 +42,7 @@ describe('recursive subdivision and hierarchy',()=>{
     expect(generate(p,1).levels[1].tiles.length).toBe(2);
     expect(()=>generate(p,2)).toThrow(/Incompatible edge splits/);
   });
-  it('enforces bounded work',()=>expect(()=>generate(chair,7)).toThrow(/Size limit/));
+  it('enforces bounded work',()=>expect(()=>generate(chair,8)).toThrow(/Size limit/));
 });
 describe('Tutte harmonic embedding',()=>{
   it.each([chair,quad,tri])('satisfies barycenter equations and convex boundary',p=>{const m=generate(p,3).levels[3],d=tutte(m);expect(d.converged).toBe(true);expect(d.residual).toBeLessThan(1e-9);for(const v of m.boundary)expect(Math.hypot(...d.points[v])).toBeCloseTo(1,12);for(const t of m.tiles){const area=t.vertices.reduce((s,v,i)=>{const [x,y]=d.points[v],[a,b]=d.points[t.vertices[(i+1)%t.vertices.length]];return s+x*b-y*a;},0);expect(area).toBeGreaterThan(0);}});

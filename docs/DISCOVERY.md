@@ -4,10 +4,10 @@ Open **Discovery** in the header. The script on the left remains the input to ev
 
 ## Convergence experiments
 
-1. Choose a seed subdivision depth. The app constructs that finite patch and computes face-adjacency distance from its exposed boundary.
+1. Choose a seed subdivision depth from 0–5. The app constructs that finite patch and computes face-adjacency distance from its exposed boundary.
 2. Choose a target tile, either in the preview or by its ID. Automatic selection picks a tile furthest from the boundary. That same ancestor ID and its designated vertices are retained throughout the experiment.
 3. Choose the surrounding collar: all seed tiles, or a specified number of face-neighbor rings. Bounded complementary holes are filled; a remaining non-manifold cut is rejected. The collar selects surroundings from the finite seed, not an infinite extension beyond it.
-4. Choose additional refinements. Every tile of the chosen patch is subdivided, including the target's descendants and the surrounding tiles.
+4. Choose additional refinements from 0–6. Every tile of the chosen patch is subdivided, including the target's descendants and the surrounding tiles.
 5. Compare equal fixed boundary radii with a deterministic smooth perturbation. For boundary vertex index i among B vertices, varied log-radius is `0.35 cos(4πi/B) + 0.2 sin(6πi/B)`. Only interior radii are solved. No known prototile coordinates are supplied.
 
 The target's first two corresponding vertices are mapped to 0 and 1 by an orientation-preserving similarity. This fixes translation, scale, and rotation without hiding affine distortion. A boundary plot overlays the normalized aggregates; solid and dashed curves distinguish boundary conditions.
@@ -67,3 +67,5 @@ The substitution matrix and its estimated growth are displayed with descendant e
 - **Notebook:** up to 20 source/settings entries in browser localStorage, exportable as JSON. Import accepts exported notebooks or convergence experiments and validates their sources and settings. Imported numerical outputs are not treated as verified. Restore and rerun to reproduce them.
 
 A notebook stores configurations, not executable code or remote jobs. Export files for durable records; browser storage can be cleared or filled. Changing the script cancels active discovery work and clears transient results. Save or export a run before changing its source.
+
+Resource budgets: 50,000 tiles, 100,000 vertices, and 50,000 star-triangulation circles per patch. Counts can stop a run before the selected refinement. The 120-second Discovery timeout and numerical acceptance tolerances are unchanged. See [benchmarks](BENCHMARKS.md).

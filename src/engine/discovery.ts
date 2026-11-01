@@ -1,3 +1,4 @@
+import {MAX_SEED_DEPTH,MAX_REFINEMENTS} from './limits';
 import { type Mesh, type Point, type Program, type Tile, type Drawing } from './types';
 import { edgeKey, makeMesh } from './topology';
 import { generate, subdivide, ruleVertexLabels } from './subdivide';
@@ -39,8 +40,8 @@ export function aggregateBoundary(mesh:Mesh,id:string):number[] {
  if(v!==start||cycle.length!==next.size)throw new Error('Target aggregate has more than one boundary component.');return cycle;
 }
 export function prepareExperiment(p:Program,options:ExperimentOptions) {
- if(!Number.isInteger(options.seedDepth)||options.seedDepth<0||options.seedDepth>4)throw new Error('Seed depth must be 0–4.');
- if(!Number.isInteger(options.refinements)||options.refinements<0||options.refinements>5)throw new Error('Refinements must be 0–5.');
+ if(!Number.isInteger(options.seedDepth)||options.seedDepth<0||options.seedDepth>MAX_SEED_DEPTH)throw new Error(`Seed depth must be 0–${MAX_SEED_DEPTH}.`);
+ if(!Number.isInteger(options.refinements)||options.refinements<0||options.refinements>MAX_REFINEMENTS)throw new Error(`Refinements must be 0–${MAX_REFINEMENTS}.`);
  if(!Number.isInteger(options.collar)||options.collar< -1||options.collar>20)throw new Error('Collar must be all surroundings or 0–20 rings.');
  if(!options.boundaries.length||options.boundaries.some(b=>b!=='equal'&&b!=='wave'))throw new Error('Choose a supported boundary condition.');
  const seed=generate(p,options.seedDepth).levels.at(-1)!,margin=margins(seed);
